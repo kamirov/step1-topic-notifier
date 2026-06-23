@@ -5,6 +5,7 @@ import UserNotifications
 final class NotificationManager {
     static let shared = NotificationManager()
     static let topicNotificationIdentifier = "step1-topic-notifier.next-topic"
+    static let allowedIntervalMinutes = [10, 15, 20, 30, 45, 60]
 
     private enum NotificationCategory {
         static let topicReview = "step1-topic-notifier.topic-review"
@@ -90,7 +91,7 @@ final class NotificationManager {
     }
 
     func updateInterval(minutes: Int) {
-        guard [5, 15, 30, 60].contains(minutes) else { return }
+        guard Self.allowedIntervalMinutes.contains(minutes) else { return }
 
         defaults.set(minutes, forKey: UserDefaultsKeys.intervalMinutes)
 
@@ -174,7 +175,7 @@ final class NotificationManager {
 
     private var currentInterval: TimeInterval {
         let minutes = defaults.integer(forKey: UserDefaultsKeys.intervalMinutes)
-        let validMinutes = [5, 15, 30, 60].contains(minutes) ? minutes : 15
+        let validMinutes = Self.allowedIntervalMinutes.contains(minutes) ? minutes : 15
         return TimeInterval(validMinutes * 60)
     }
 

@@ -37,8 +37,9 @@ struct TroubleTopic: Identifiable {
 }
 
 final class TopicReviewStore {
+    static let reviewRecordsDefaultsKey = "topicReviewRecords"
+
     private enum Constants {
-        static let defaultsKey = "topicReviewRecords"
         static let minimumEaseFactor = 1.3
         static let defaultEaseFactor = 2.5
         static let againInterval: TimeInterval = 5 * 60
@@ -196,7 +197,7 @@ final class TopicReviewStore {
     }
 
     private func reviewRecords() -> [String: TopicReviewRecord] {
-        guard let data = defaults.data(forKey: Constants.defaultsKey) else {
+        guard let data = defaults.data(forKey: Self.reviewRecordsDefaultsKey) else {
             return [:]
         }
 
@@ -211,7 +212,7 @@ final class TopicReviewStore {
     private func save(records: [String: TopicReviewRecord]) {
         do {
             let data = try JSONEncoder().encode(records)
-            defaults.set(data, forKey: Constants.defaultsKey)
+            defaults.set(data, forKey: Self.reviewRecordsDefaultsKey)
         } catch {
             print("Could not save topic review records: \(error.localizedDescription)")
         }

@@ -8,11 +8,12 @@ struct Step1TopicNotifierApp: App {
 
     @AppStorage(NotificationManager.UserDefaultsKeys.isActive) private var isActive = false
     @AppStorage(NotificationManager.UserDefaultsKeys.intervalMinutes) private var intervalMinutes = 15
+    @AppStorage(TopicReviewStore.reviewRecordsDefaultsKey) private var reviewRecordsData = Data()
 
     @State private var launchAtLoginEnabled = LaunchAtLoginManager.isEnabled
 
     private let notificationManager = NotificationManager.shared
-    private let intervals = [5, 15, 30, 60]
+    private let intervals = NotificationManager.allowedIntervalMinutes
 
     var body: some Scene {
         MenuBarExtra("Step 1 Topics", systemImage: "bell.badge") {
@@ -49,7 +50,7 @@ struct Step1TopicNotifierApp: App {
 
             Text("Trouble Topics")
 
-            let troubleTopics = notificationManager.troubleTopics(limit: 5)
+            let troubleTopics = troubleTopicsForMenu(reviewRecordsData)
             if troubleTopics.isEmpty {
                 Text("No trouble topics yet")
                     .foregroundStyle(.secondary)
@@ -72,6 +73,11 @@ struct Step1TopicNotifierApp: App {
             }
         }
         .menuBarExtraStyle(.menu)
+    }
+
+    private func troubleTopicsForMenu(_ reviewRecordsData: Data) -> [TroubleTopic] {
+        _ = reviewRecordsData
+        return notificationManager.troubleTopics(limit: 5)
     }
 }
 

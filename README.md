@@ -40,7 +40,7 @@ If Xcode asks for signing settings, select your local Apple Development team in 
 
 - `Start Notifications`: schedules the next spaced repetition topic notification.
 - `Stop Notifications`: cancels the scheduled topic notification.
-- `Interval`: choose 5, 15, 30, or 60 minutes.
+- `Interval`: choose 10, 15, 20, 30, 45, or 60 minutes.
 - `Launch at Login`: uses `SMAppService.mainApp` on macOS 13+.
 - `Trouble Topics`: lists the reviewed topics with the highest weakness scores. Clicking one sends an immediate review notification for that topic.
 - `Send Test Notification`: sends an immediate local notification.
