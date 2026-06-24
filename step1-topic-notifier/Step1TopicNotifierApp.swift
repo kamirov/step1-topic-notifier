@@ -8,7 +8,7 @@ struct Step1TopicNotifierApp: App {
 
     @AppStorage(NotificationManager.UserDefaultsKeys.isActive) private var isActive = false
     @AppStorage(NotificationManager.UserDefaultsKeys.intervalMinutes) private var intervalMinutes = 15
-    @AppStorage(NotificationManager.UserDefaultsKeys.currentTopicGroup) private var currentTopicGroup = ""
+    @AppStorage(NotificationManager.UserDefaultsKeys.currentTopicGroups) private var currentTopicGroups = "[]"
     @AppStorage(TopicReviewStore.reviewRecordsDefaultsKey) private var reviewRecordsData = Data()
 
     @State private var launchAtLoginEnabled = LaunchAtLoginManager.isEnabled
@@ -39,14 +39,19 @@ struct Step1TopicNotifierApp: App {
                 notificationManager.updateInterval(minutes: newValue)
             }
 
-            Picker("Current Topic", selection: $currentTopicGroup) {
-                Text("All Topics").tag("")
-                ForEach(notificationManager.topicGroups) { group in
-                    Text(group.name).tag(group.name)
+            Text("Current Topics")
+
+            Toggle("All Topics", isOn: Binding(
+                get: { selectedTopicGroupNames().isEmpty },
+                set: { newValue in
+                    if newValue {
+                        notificationManager.updateCurrentTopicGroups([])
+                    }
                 }
-            }
-            .onChange(of: currentTopicGroup) { newValue in
-                notificationManager.updateCurrentTopicGroup(newValue)
+            ))
+
+            ForEach(notificationManager.topicGroups) { group in
+                Toggle(group.name, isOn: topicGroupBinding(for: group.name))
             }
 
             Toggle("Launch at Login", isOn: Binding(
@@ -89,6 +94,35 @@ struct Step1TopicNotifierApp: App {
     private func troubleTopicsForMenu(_ reviewRecordsData: Data) -> [TroubleTopic] {
         _ = reviewRecordsData
         return notificationManager.troubleTopics(limit: 5)
+    }
+
+    private func topicGroupBinding(for groupName: String) -> Binding<Bool> {
+        Binding(
+            get: {
+                selectedTopicGroupNames().contains(groupName)
+            },
+            set: { isSelected in
+                var selectedGroupNames = selectedTopicGroupNames()
+
+                if isSelected {
+                    selectedGroupNames.append(groupName)
+                } else {
+                    selectedGroupNames.removeAll { $0 == groupName }
+                }
+
+                notificationManager.updateCurrentTopicGroups(selectedGroupNames)
+            }
+        )
+    }
+
+    private func selectedTopicGroupNames() -> [String] {
+        guard let data = currentTopicGroups.data(using: .utf8),
+              let selectedGroupNames = try? JSONDecoder().decode([String].self, from: data)
+        else {
+            return []
+        }
+
+        return selectedGroupNames
     }
 }
 

@@ -33,12 +33,26 @@ struct TopicStore {
         }
     }
 
+    func topics(in groupNames: [String]) -> [String] {
+        guard !groupNames.isEmpty else {
+            return topics
+        }
+
+        let selectedGroups = Set(groupNames)
+        let selectedTopics = topicGroups
+            .filter { selectedGroups.contains($0.name) }
+            .flatMap(\.topics)
+        let uniqueSelectedTopics = Self.uniqueTopics(selectedTopics)
+
+        return uniqueSelectedTopics.isEmpty ? topics : uniqueSelectedTopics
+    }
+
     func topics(in groupName: String?) -> [String] {
         guard let groupName, !groupName.isEmpty else {
             return topics
         }
 
-        return topicGroups.first { $0.name == groupName }?.topics ?? topics
+        return topics(in: [groupName])
     }
 
     func randomTopic() -> String {
@@ -56,6 +70,19 @@ struct TopicStore {
         return [
             TopicGroup(name: "General", topics: flatTopics)
         ]
+    }
+
+    private static func uniqueTopics(_ topics: [String]) -> [String] {
+        var seenTopics = Set<String>()
+
+        return topics.filter { topic in
+            guard !seenTopics.contains(topic) else {
+                return false
+            }
+
+            seenTopics.insert(topic)
+            return true
+        }
     }
 
     private static let fallbackTopics = [

@@ -41,7 +41,7 @@ If Xcode asks for signing settings, select your local Apple Development team in 
 - `Start Notifications`: schedules the next spaced repetition topic notification.
 - `Stop Notifications`: cancels the scheduled topic notification.
 - `Interval`: choose 10, 15, 20, 30, 45, or 60 minutes.
-- `Current Topic`: choose `All Topics` or one grouped topic area. When a topic area is selected, future notifications and trouble topics are limited to that area while still using the spaced repetition scheduler within that pool.
+- `Current Topics`: choose `All Topics` or select one or more grouped topic areas. When topic areas are selected, future notifications and trouble topics use those areas as one combined pool while still using the spaced repetition scheduler within that pool.
 - `Launch at Login`: uses `SMAppService.mainApp` on macOS 13+.
 - `Trouble Topics`: lists the reviewed topics with the highest weakness scores. Clicking one sends an immediate review notification for that topic.
 - `Send Test Notification`: sends an immediate local notification.
@@ -49,7 +49,7 @@ If Xcode asks for signing settings, select your local Apple Development team in 
 
 ## Local Data
 
-Topics are bundled in `step1-topic-notifier/topics.json` as grouped topic areas, each with a `name` and `topics` list. Review history and the current topic filter are stored locally in `UserDefaults`. Review history includes each topic's last review, next due date, ease factor, interval, review count, and latest rating. The app does not use a backend or network service. The only network action is opening the browser after `Again`, `So-So`, or a notification body click.
+Topics are bundled in `step1-topic-notifier/topics.json` as grouped topic areas, each with a `name` and `topics` list. Review history and selected current topic groups are stored locally in `UserDefaults`. Review history includes each topic's last review, next due date, ease factor, interval, review count, and latest rating. The app does not use a backend or network service. The only network action is opening the browser after `Again`, `So-So`, or a notification body click.
 
 ## Command-Line Note
 

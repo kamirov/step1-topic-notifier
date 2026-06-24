@@ -19,6 +19,7 @@ final class NotificationManager {
         static let intervalMinutes = "intervalMinutes"
         static let nextFireDate = "nextFireDate"
         static let currentTopicGroup = "currentTopicGroup"
+        static let currentTopicGroups = "currentTopicGroups"
     }
 
     private let center = UNUserNotificationCenter.current()
@@ -33,8 +34,10 @@ final class NotificationManager {
             UserDefaultsKeys.isActive: false,
             UserDefaultsKeys.intervalMinutes: 15,
             UserDefaultsKeys.nextFireDate: 0.0,
-            UserDefaultsKeys.currentTopicGroup: ""
+            UserDefaultsKeys.currentTopicGroup: "",
+            UserDefaultsKeys.currentTopicGroups: "[]"
         ])
+        migrateCurrentTopicGroupIfNeeded()
         registerNotificationCategories()
     }
 
@@ -111,7 +114,14 @@ final class NotificationManager {
             return
         }
 
-        defaults.set(groupName, forKey: UserDefaultsKeys.currentTopicGroup)
+        updateCurrentTopicGroups(groupName.isEmpty ? [] : [groupName])
+    }
+
+    func updateCurrentTopicGroups(_ groupNames: [String]) {
+        let availableGroupNames = Set(topicStore.topicGroups.map(\.name))
+        let validGroupNames = uniqueGroupNames(groupNames.filter { availableGroupNames.contains($0) })
+        defaults.set(encodedTopicGroups(validGroupNames), forKey: UserDefaultsKeys.currentTopicGroups)
+        defaults.removeObject(forKey: UserDefaultsKeys.currentTopicGroup)
 
         if defaults.bool(forKey: UserDefaultsKeys.isActive) {
             scheduleNextTopicNotification()
@@ -198,8 +208,18 @@ final class NotificationManager {
     }
 
     private var currentTopicPool: [String] {
-        let selectedGroup = defaults.string(forKey: UserDefaultsKeys.currentTopicGroup)
-        return topicStore.topics(in: selectedGroup)
+        topicStore.topics(in: selectedTopicGroups)
+    }
+
+    private var selectedTopicGroups: [String] {
+        let encodedGroups = defaults.string(forKey: UserDefaultsKeys.currentTopicGroups) ?? "[]"
+        guard let data = encodedGroups.data(using: .utf8),
+              let groupNames = try? JSONDecoder().decode([String].self, from: data)
+        else {
+            return []
+        }
+
+        return groupNames
     }
 
     private var remainingTimeUntilNextFire: TimeInterval {
@@ -322,6 +342,42 @@ final class NotificationManager {
     private func cancelDeliveryFollowUp() {
         deliveryFollowUpWorkItem?.cancel()
         deliveryFollowUpWorkItem = nil
+    }
+
+    private func encodedTopicGroups(_ groupNames: [String]) -> String {
+        guard let data = try? JSONEncoder().encode(groupNames),
+              let encodedGroups = String(data: data, encoding: .utf8)
+        else {
+            return "[]"
+        }
+
+        return encodedGroups
+    }
+
+    private func migrateCurrentTopicGroupIfNeeded() {
+        let encodedGroups = defaults.string(forKey: UserDefaultsKeys.currentTopicGroups) ?? "[]"
+        guard encodedGroups == "[]",
+              let groupName = defaults.string(forKey: UserDefaultsKeys.currentTopicGroup),
+              !groupName.isEmpty
+        else {
+            return
+        }
+
+        defaults.set(encodedTopicGroups([groupName]), forKey: UserDefaultsKeys.currentTopicGroups)
+        defaults.removeObject(forKey: UserDefaultsKeys.currentTopicGroup)
+    }
+
+    private func uniqueGroupNames(_ groupNames: [String]) -> [String] {
+        var seenGroupNames = Set<String>()
+
+        return groupNames.filter { groupName in
+            guard !seenGroupNames.contains(groupName) else {
+                return false
+            }
+
+            seenGroupNames.insert(groupName)
+            return true
+        }
     }
 
     private func openGoogleSearch(for topic: String) {
