@@ -5,6 +5,7 @@ import UserNotifications
 @main
 struct Step1TopicNotifierApp: App {
     @NSApplicationDelegateAdaptor(AppDelegate.self) private var appDelegate
+    @Environment(\.openWindow) private var openWindow
 
     @AppStorage(NotificationManager.UserDefaultsKeys.isActive) private var isActive = false
     @AppStorage(NotificationManager.UserDefaultsKeys.intervalMinutes) private var intervalMinutes = 15
@@ -18,7 +19,7 @@ struct Step1TopicNotifierApp: App {
 
     var body: some Scene {
         MenuBarExtra("Step 1 Topics", systemImage: "bell.badge") {
-            Text(isActive ? "Notifications Active" : "Notifications Stopped")
+            Text("Step 1 Topic Notifier")
 
             Button(isActive ? "Stop Notifications" : "Start Notifications") {
                 if isActive {
@@ -28,8 +29,91 @@ struct Step1TopicNotifierApp: App {
                 }
             }
 
+            Button("Send Notification") {
+                notificationManager.sendTestNotification()
+            }
+
             Divider()
 
+            Button("Current Topic: \(currentTopicSummary())") {
+                openSettingsWindow()
+            }
+
+            Divider()
+
+            Menu("Trouble Topics") {
+                let troubleTopics = troubleTopicsForMenu(reviewRecordsData)
+                if troubleTopics.isEmpty {
+                    Text("No trouble topics yet")
+                        .foregroundStyle(.secondary)
+                } else {
+                    ForEach(troubleTopics) { troubleTopic in
+                        Button("\(troubleTopic.topic) - \(troubleTopic.score)") {
+                            notificationManager.sendReviewNotification(for: troubleTopic.topic)
+                        }
+                    }
+                }
+            }
+
+            Button("Settings...") {
+                openSettingsWindow()
+            }
+
+            Button("Quit") {
+                NSApplication.shared.terminate(nil)
+            }
+        }
+        .menuBarExtraStyle(.menu)
+
+        Window("Settings", id: "settings") {
+            SettingsView(
+                intervalMinutes: $intervalMinutes,
+                launchAtLoginEnabled: $launchAtLoginEnabled,
+                currentTopicGroups: $currentTopicGroups,
+                notificationManager: notificationManager,
+                intervals: intervals
+            )
+        }
+        .defaultSize(width: 380, height: 430)
+    }
+
+    private func troubleTopicsForMenu(_ reviewRecordsData: Data) -> [TroubleTopic] {
+        _ = reviewRecordsData
+        return notificationManager.troubleTopics(limit: 5)
+    }
+
+    private func currentTopicSummary() -> String {
+        let selectedGroupNames = selectedTopicGroupNames()
+        return selectedGroupNames.isEmpty ? "All Topics" : selectedGroupNames.joined(separator: ", ")
+    }
+
+    private func selectedTopicGroupNames() -> [String] {
+        guard let data = currentTopicGroups.data(using: .utf8),
+              let selectedGroupNames = try? JSONDecoder().decode([String].self, from: data)
+        else {
+            return []
+        }
+
+        return selectedGroupNames
+    }
+
+    private func openSettingsWindow() {
+        launchAtLoginEnabled = LaunchAtLoginManager.isEnabled
+        openWindow(id: "settings")
+        NSApplication.shared.activate(ignoringOtherApps: true)
+    }
+}
+
+struct SettingsView: View {
+    @Binding var intervalMinutes: Int
+    @Binding var launchAtLoginEnabled: Bool
+    @Binding var currentTopicGroups: String
+
+    let notificationManager: NotificationManager
+    let intervals: [Int]
+
+    var body: some View {
+        Form {
             Picker("Interval", selection: $intervalMinutes) {
                 ForEach(intervals, id: \.self) { minutes in
                     Text("\(minutes) min").tag(minutes)
@@ -39,22 +123,7 @@ struct Step1TopicNotifierApp: App {
                 notificationManager.updateInterval(minutes: newValue)
             }
 
-            Text("Current Topics")
-
-            Toggle("All Topics", isOn: Binding(
-                get: { selectedTopicGroupNames().isEmpty },
-                set: { newValue in
-                    if newValue {
-                        notificationManager.updateCurrentTopicGroups([])
-                    }
-                }
-            ))
-
-            ForEach(notificationManager.topicGroups) { group in
-                Toggle(group.name, isOn: topicGroupBinding(for: group.name))
-            }
-
-            Toggle("Launch at Login", isOn: Binding(
+            Toggle("Start at Login", isOn: Binding(
                 get: { launchAtLoginEnabled },
                 set: { newValue in
                     LaunchAtLoginManager.setEnabled(newValue)
@@ -62,38 +131,24 @@ struct Step1TopicNotifierApp: App {
                 }
             ))
 
-            Divider()
-
-            Text("Trouble Topics")
-
-            let troubleTopics = troubleTopicsForMenu(reviewRecordsData)
-            if troubleTopics.isEmpty {
-                Text("No trouble topics yet")
-                    .foregroundStyle(.secondary)
-            } else {
-                ForEach(troubleTopics) { troubleTopic in
-                    Button("\(troubleTopic.topic) - \(troubleTopic.score)") {
-                        notificationManager.sendReviewNotification(for: troubleTopic.topic)
+            Section("Current Topics") {
+                Toggle("All Topics", isOn: Binding(
+                    get: { selectedTopicGroupNames().isEmpty },
+                    set: { newValue in
+                        if newValue {
+                            notificationManager.updateCurrentTopicGroups([])
+                        }
                     }
+                ))
+
+                ForEach(notificationManager.topicGroups) { group in
+                    Toggle(group.name, isOn: topicGroupBinding(for: group.name))
                 }
             }
-
-            Divider()
-
-            Button("Send Test Notification") {
-                notificationManager.sendTestNotification()
-            }
-
-            Button("Quit") {
-                NSApplication.shared.terminate(nil)
-            }
         }
-        .menuBarExtraStyle(.menu)
-    }
-
-    private func troubleTopicsForMenu(_ reviewRecordsData: Data) -> [TroubleTopic] {
-        _ = reviewRecordsData
-        return notificationManager.troubleTopics(limit: 5)
+        .formStyle(.grouped)
+        .padding(20)
+        .frame(minWidth: 340, minHeight: 360)
     }
 
     private func topicGroupBinding(for groupName: String) -> Binding<Bool> {
