@@ -8,6 +8,7 @@ struct Step1TopicNotifierApp: App {
 
     @AppStorage(NotificationManager.UserDefaultsKeys.isActive) private var isActive = false
     @AppStorage(NotificationManager.UserDefaultsKeys.intervalMinutes) private var intervalMinutes = 15
+    @AppStorage(NotificationManager.UserDefaultsKeys.currentTopicGroup) private var currentTopicGroup = ""
     @AppStorage(TopicReviewStore.reviewRecordsDefaultsKey) private var reviewRecordsData = Data()
 
     @State private var launchAtLoginEnabled = LaunchAtLoginManager.isEnabled
@@ -36,6 +37,16 @@ struct Step1TopicNotifierApp: App {
             }
             .onChange(of: intervalMinutes) { newValue in
                 notificationManager.updateInterval(minutes: newValue)
+            }
+
+            Picker("Current Topic", selection: $currentTopicGroup) {
+                Text("All Topics").tag("")
+                ForEach(notificationManager.topicGroups) { group in
+                    Text(group.name).tag(group.name)
+                }
+            }
+            .onChange(of: currentTopicGroup) { newValue in
+                notificationManager.updateCurrentTopicGroup(newValue)
             }
 
             Toggle("Launch at Login", isOn: Binding(

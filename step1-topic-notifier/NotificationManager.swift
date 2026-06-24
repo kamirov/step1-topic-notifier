@@ -18,6 +18,7 @@ final class NotificationManager {
         static let isActive = "isActive"
         static let intervalMinutes = "intervalMinutes"
         static let nextFireDate = "nextFireDate"
+        static let currentTopicGroup = "currentTopicGroup"
     }
 
     private let center = UNUserNotificationCenter.current()
@@ -31,9 +32,14 @@ final class NotificationManager {
         defaults.register(defaults: [
             UserDefaultsKeys.isActive: false,
             UserDefaultsKeys.intervalMinutes: 15,
-            UserDefaultsKeys.nextFireDate: 0.0
+            UserDefaultsKeys.nextFireDate: 0.0,
+            UserDefaultsKeys.currentTopicGroup: ""
         ])
         registerNotificationCategories()
+    }
+
+    var topicGroups: [TopicGroup] {
+        topicStore.topicGroups
     }
 
     func requestAuthorizationIfNeeded(completion: ((Bool) -> Void)? = nil) {
@@ -100,6 +106,18 @@ final class NotificationManager {
         }
     }
 
+    func updateCurrentTopicGroup(_ groupName: String) {
+        guard groupName.isEmpty || topicStore.topicGroups.contains(where: { $0.name == groupName }) else {
+            return
+        }
+
+        defaults.set(groupName, forKey: UserDefaultsKeys.currentTopicGroup)
+
+        if defaults.bool(forKey: UserDefaultsKeys.isActive) {
+            scheduleNextTopicNotification()
+        }
+    }
+
     func resumeIfNeeded() {
         guard defaults.bool(forKey: UserDefaultsKeys.isActive) else { return }
 
@@ -136,7 +154,7 @@ final class NotificationManager {
         requestAuthorizationIfNeeded { [weak self] granted in
             guard let self, granted else { return }
 
-            let topic = self.reviewStore.nextTopic(from: self.topicStore.topics)
+            let topic = self.reviewStore.nextTopic(from: self.currentTopicPool)
             self.sendImmediateReviewNotification(for: topic, identifierPrefix: "test")
         }
     }
@@ -151,7 +169,7 @@ final class NotificationManager {
     }
 
     func troubleTopics(limit: Int) -> [TroubleTopic] {
-        reviewStore.troubleTopics(from: topicStore.topics, limit: limit)
+        reviewStore.troubleTopics(from: currentTopicPool, limit: limit)
     }
 
     func handleNotificationResponse(_ response: UNNotificationResponse) {
@@ -179,6 +197,11 @@ final class NotificationManager {
         return TimeInterval(validMinutes * 60)
     }
 
+    private var currentTopicPool: [String] {
+        let selectedGroup = defaults.string(forKey: UserDefaultsKeys.currentTopicGroup)
+        return topicStore.topics(in: selectedGroup)
+    }
+
     private var remainingTimeUntilNextFire: TimeInterval {
         let nextFireDate = defaults.double(forKey: UserDefaultsKeys.nextFireDate)
 
@@ -195,7 +218,7 @@ final class NotificationManager {
         cancelDeliveryFollowUp()
         center.removePendingNotificationRequests(withIdentifiers: [Self.topicNotificationIdentifier])
 
-        let topic = reviewStore.nextTopic(from: topicStore.topics)
+        let topic = reviewStore.nextTopic(from: currentTopicPool)
         let content = notificationContent(for: topic)
         let interval = currentInterval
         let trigger = UNTimeIntervalNotificationTrigger(timeInterval: interval, repeats: false)

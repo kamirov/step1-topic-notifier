@@ -1,8 +1,147 @@
 [
-  "Bilirubin metabolism",
-  "Intrinsic factor production and use",
-  "Tuberculosis pathophysiology",
-  "Lower extremity nerve pathways",
-  "Pancreatic function",
-  "Gallbladder function"
+  {
+    "name": "Immunology & General Pathology",
+    "topics": [
+      "Inflammation",
+      "Wound healing",
+      "Hypersensitivity reactions (I-IV)",
+      "Complement system",
+      "MHC I vs II",
+      "T-cell activation",
+      "B-cell activation",
+      "Cytokines (ILs, TNF, IFN)",
+      "Granuloma formation",
+      "Autoimmunity"
+    ]
+  },
+  {
+    "name": "Microbiology",
+    "topics": [
+      "Tuberculosis",
+      "HIV",
+      "Staphylococcus aureus",
+      "Streptococcus pyogenes",
+      "Streptococcus pneumoniae",
+      "Neisseria meningitidis",
+      "Neisseria gonorrhoeae",
+      "Clostridioides difficile",
+      "Syphilis",
+      "Lyme disease"
+    ]
+  },
+  {
+    "name": "Cardiovascular",
+    "topics": [
+      "Atherosclerosis",
+      "Hypertension",
+      "Heart failure",
+      "Myocardial infarction",
+      "Stable vs unstable angina",
+      "Cardiogenic shock",
+      "Infective endocarditis",
+      "Rheumatic fever",
+      "Aortic stenosis",
+      "Mitral regurgitation"
+    ]
+  },
+  {
+    "name": "Respiratory",
+    "topics": [
+      "Asthma",
+      "COPD",
+      "Emphysema",
+      "Chronic bronchitis",
+      "Pulmonary embolism",
+      "Pneumonia",
+      "Tuberculosis (pulmonary focus)",
+      "ARDS",
+      "Restrictive lung disease",
+      "Pneumothorax"
+    ]
+  },
+  {
+    "name": "Renal",
+    "topics": [
+      "Acute kidney injury",
+      "Nephritic syndrome",
+      "Nephrotic syndrome",
+      "Minimal change disease",
+      "FSGS",
+      "Membranous nephropathy",
+      "Post-strep glomerulonephritis",
+      "IgA nephropathy",
+      "Acute tubular necrosis",
+      "Renal cell carcinoma"
+    ]
+  },
+  {
+    "name": "GI",
+    "topics": [
+      "GERD",
+      "Peptic ulcer disease",
+      "Gastritis",
+      "Celiac disease",
+      "Crohn disease",
+      "Ulcerative colitis",
+      "Appendicitis",
+      "Colon cancer",
+      "Hemorrhoids",
+      "Portal hypertension",
+      "Hepatitis B",
+      "Hepatitis C",
+      "Cirrhosis",
+      "Hemochromatosis",
+      "Wilson disease",
+      "Alpha-1 antitrypsin deficiency",
+      "Gallstones",
+      "Acute cholecystitis",
+      "Pancreatitis",
+      "Pancreatic cancer"
+    ]
+  },
+  {
+    "name": "Endocrine",
+    "topics": [
+      "Diabetes mellitus",
+      "Diabetic ketoacidosis",
+      "Hyperosmolar hyperglycemic state",
+      "Graves disease",
+      "Hashimoto thyroiditis",
+      "Hyperparathyroidism",
+      "Pheochromocytoma",
+      "Cushing syndrome",
+      "Addison disease",
+      "MEN syndromes"
+    ]
+  },
+  {
+    "name": "Neurology",
+    "topics": [
+      "Stroke",
+      "Multiple sclerosis",
+      "Parkinson disease",
+      "Alzheimer's disease",
+      "Huntington disease",
+      "Myasthenia gravis",
+      "Lambert-Eaton syndrome",
+      "Migraine",
+      "Seizures",
+      "Brain tumors"
+    ]
+  },
+  {
+    "name": "Hematology / Oncology",
+    "topics": [
+      "Iron deficiency anemia",
+      "Anemia of chronic disease",
+      "Sickle cell disease",
+      "G6PD deficiency",
+      "Hereditary spherocytosis",
+      "DIC",
+      "Acute lymphoblastic leukemia",
+      "Chronic myeloid leukemia",
+      "Hodgkin lymphoma",
+      "Multiple myeloma"
+    ]
+  }
 ]
