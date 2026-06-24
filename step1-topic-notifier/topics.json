@@ -1,81 +1,262 @@
 [
   {
-    "name": "Immunology & General Pathology",
+    "name": "Biochemistry (General Principles)",
+    "topics": [
+      "Amino acids",
+      "Enzyme kinetics",
+      "Glycolysis",
+      "Gluconeogenesis",
+      "TCA cycle",
+      "Electron transport chain",
+      "Fatty acid metabolism",
+      "Ketone bodies",
+      "Urea cycle",
+      "Purine and pyrimidine metabolism",
+      "Vitamins",
+      "Lysosomal storage diseases",
+      "Glycogen storage diseases",
+      "Peroxisomal disorders"
+    ]
+  },
+  {
+    "name": "Genetics (General Principles)",
+    "topics": [
+      "Mendelian inheritance",
+      "Pedigrees",
+      "Hardy-Weinberg",
+      "Imprinting",
+      "Trinucleotide repeats",
+      "Mitochondrial inheritance",
+      "Chromosomal abnormalities",
+      "DNA replication and repair",
+      "Transcription and translation",
+      "Oncogenes and tumor suppressors",
+      "Genetic testing",
+      "Population genetics"
+    ]
+  },
+  {
+    "name": "Microbiology (General Principles)",
+    "topics": [
+      "Bacterial structure",
+      "Gram stain patterns",
+      "Bacterial genetics",
+      "Virulence factors",
+      "Antibiotic mechanisms",
+      "Viral structure",
+      "Viral replication",
+      "Fungal structure",
+      "Parasite life cycles",
+      "Sterilization and disinfection"
+    ]
+  },
+  {
+    "name": "Pathology (General Principles)",
     "topics": [
       "Inflammation",
       "Wound healing",
-      "Hypersensitivity reactions (I-IV)",
+      "Cellular injury",
+      "Necrosis and apoptosis",
+      "Free radical injury",
+      "Amyloidosis",
+      "Neoplasia",
+      "Tumor grading and staging",
+      "Paraneoplastic syndromes",
+      "Hemodynamic disorders",
+      "Shock"
+    ]
+  },
+  {
+    "name": "Pharmacology (General Principles)",
+    "topics": [
+      "Pharmacokinetics",
+      "Pharmacodynamics",
+      "Receptor signaling",
+      "Dose-response curves",
+      "Drug metabolism",
+      "CYP450 interactions",
+      "Toxicity and therapeutic index",
+      "Autonomic pharmacology",
+      "Drug development",
+      "Teratogens"
+    ]
+  },
+  {
+    "name": "Biostatistics & Epidemiology",
+    "topics": [
+      "Study designs",
+      "Bias",
+      "Sensitivity and specificity",
+      "PPV and NPV",
+      "Likelihood ratios",
+      "Relative risk",
+      "Odds ratio",
+      "Attributable risk",
+      "Number needed to treat",
+      "Confidence intervals",
+      "P values",
+      "Kaplan-Meier curves",
+      "Screening",
+      "Incidence and prevalence"
+    ]
+  },
+  {
+    "name": "Poisoning & Environmental Exposure",
+    "topics": [
+      "Acetaminophen toxicity",
+      "Salicylate toxicity",
+      "Carbon monoxide poisoning",
+      "Lead poisoning",
+      "Iron poisoning",
+      "Organophosphate poisoning",
+      "Methanol and ethylene glycol",
+      "Cyanide toxicity",
+      "Heat illness",
+      "Hypothermia",
+      "Radiation exposure"
+    ]
+  },
+  {
+    "name": "Psychiatric/Behavioral & Substance Use Disorder",
+    "topics": [
+      "Depression",
+      "Bipolar disorder",
+      "Anxiety disorders",
+      "OCD",
+      "PTSD",
+      "Somatic symptom disorders",
+      "Schizophrenia",
+      "Personality disorders",
+      "Eating disorders",
+      "Sleep disorders",
+      "Alcohol use disorder",
+      "Opioid use disorder",
+      "Stimulant intoxication",
+      "Withdrawal syndromes",
+      "Neurocognitive disorders"
+    ]
+  },
+  {
+    "name": "Miscellaneous (Multisystem)",
+    "topics": [
+      "Fever of unknown origin",
+      "Fatigue",
+      "Weight loss",
+      "Edema",
+      "Syncope",
+      "Shock differential",
+      "Multisystem trauma",
+      "Frailty",
+      "Geriatric pharmacology"
+    ]
+  },
+  {
+    "name": "Allergy & Immunology",
+    "topics": [
+      "Hypersensitivity reactions I-IV",
       "Complement system",
       "MHC I vs II",
       "T-cell activation",
       "B-cell activation",
-      "Cytokines (ILs, TNF, IFN)",
+      "Cytokines",
       "Granuloma formation",
-      "Autoimmunity"
+      "Autoimmunity",
+      "Immunodeficiency",
+      "Vaccines",
+      "Transplant rejection"
     ]
   },
   {
-    "name": "Microbiology",
-    "topics": [
-      "Tuberculosis",
-      "HIV",
-      "Staphylococcus aureus",
-      "Streptococcus pyogenes",
-      "Streptococcus pneumoniae",
-      "Neisseria meningitidis",
-      "Neisseria gonorrhoeae",
-      "Clostridioides difficile",
-      "Syphilis",
-      "Lyme disease"
-    ]
-  },
-  {
-    "name": "Cardiovascular",
+    "name": "Cardiovascular System",
     "topics": [
       "Atherosclerosis",
       "Hypertension",
       "Heart failure",
       "Myocardial infarction",
       "Stable vs unstable angina",
-      "Cardiogenic shock",
+      "Arrhythmias",
+      "Cardiomyopathies",
+      "Valvular disease",
       "Infective endocarditis",
       "Rheumatic fever",
-      "Aortic stenosis",
-      "Mitral regurgitation"
+      "Pericarditis",
+      "Congenital heart disease",
+      "Aortic aneurysm and dissection",
+      "Peripheral vascular disease",
+      "Cardiogenic shock"
     ]
   },
   {
-    "name": "Respiratory",
+    "name": "Dermatology",
     "topics": [
-      "Asthma",
-      "COPD",
-      "Emphysema",
-      "Chronic bronchitis",
-      "Pulmonary embolism",
-      "Pneumonia",
-      "Tuberculosis (pulmonary focus)",
-      "ARDS",
-      "Restrictive lung disease",
-      "Pneumothorax"
+      "Acne",
+      "Atopic dermatitis",
+      "Psoriasis",
+      "Seborrheic dermatitis",
+      "Contact dermatitis",
+      "Urticaria",
+      "Drug eruptions",
+      "Bullous diseases",
+      "Melanoma",
+      "Basal cell carcinoma",
+      "Squamous cell carcinoma",
+      "Skin infections",
+      "Hair and nail disorders"
     ]
   },
   {
-    "name": "Renal",
+    "name": "Ear, Nose & Throat (ENT)",
     "topics": [
-      "Acute kidney injury",
-      "Nephritic syndrome",
-      "Nephrotic syndrome",
-      "Minimal change disease",
-      "FSGS",
-      "Membranous nephropathy",
-      "Post-strep glomerulonephritis",
-      "IgA nephropathy",
-      "Acute tubular necrosis",
-      "Renal cell carcinoma"
+      "Otitis media",
+      "Otitis externa",
+      "Hearing loss",
+      "Vertigo",
+      "Sinusitis",
+      "Pharyngitis",
+      "Epistaxis",
+      "Neck masses",
+      "Thyroid nodules",
+      "Laryngeal disorders"
     ]
   },
   {
-    "name": "GI",
+    "name": "Endocrine, Diabetes & Metabolism",
+    "topics": [
+      "Diabetes mellitus",
+      "DKA",
+      "HHS",
+      "Hypoglycemia",
+      "Graves disease",
+      "Hashimoto thyroiditis",
+      "Thyroid nodules",
+      "Hyperparathyroidism",
+      "Adrenal insufficiency",
+      "Cushing syndrome",
+      "Pheochromocytoma",
+      "Pituitary adenomas",
+      "MEN syndromes",
+      "Metabolic syndrome"
+    ]
+  },
+  {
+    "name": "Female Reproductive System & Breast",
+    "topics": [
+      "Menstrual cycle",
+      "Amenorrhea",
+      "PCOS",
+      "Endometriosis",
+      "Fibroids",
+      "Ovarian cysts and tumors",
+      "Cervical dysplasia",
+      "Endometrial cancer",
+      "Breast masses",
+      "Breast cancer",
+      "Contraception",
+      "Menopause"
+    ]
+  },
+  {
+    "name": "Gastrointestinal & Nutrition",
     "topics": [
       "GERD",
       "Peptic ulcer disease",
@@ -90,58 +271,183 @@
       "Hepatitis B",
       "Hepatitis C",
       "Cirrhosis",
-      "Hemochromatosis",
-      "Wilson disease",
-      "Alpha-1 antitrypsin deficiency",
       "Gallstones",
-      "Acute cholecystitis",
+      "Cholecystitis",
       "Pancreatitis",
-      "Pancreatic cancer"
+      "Pancreatic cancer",
+      "Malabsorption",
+      "Nutrition deficiencies"
     ]
   },
   {
-    "name": "Endocrine",
+    "name": "Hematology & Oncology",
     "topics": [
-      "Diabetes mellitus",
-      "Diabetic ketoacidosis",
-      "Hyperosmolar hyperglycemic state",
-      "Graves disease",
-      "Hashimoto thyroiditis",
-      "Hyperparathyroidism",
-      "Pheochromocytoma",
-      "Cushing syndrome",
-      "Addison disease",
-      "MEN syndromes"
-    ]
-  },
-  {
-    "name": "Neurology",
-    "topics": [
-      "Stroke",
-      "Multiple sclerosis",
-      "Parkinson disease",
-      "Alzheimer's disease",
-      "Huntington disease",
-      "Myasthenia gravis",
-      "Lambert-Eaton syndrome",
-      "Migraine",
-      "Seizures",
-      "Brain tumors"
-    ]
-  },
-  {
-    "name": "Hematology / Oncology",
-    "topics": [
+      "Anemia",
       "Iron deficiency anemia",
       "Anemia of chronic disease",
       "Sickle cell disease",
       "G6PD deficiency",
       "Hereditary spherocytosis",
+      "Coagulation cascade",
+      "Intrinsic pathway",
+      "Extrinsic pathway",
       "DIC",
-      "Acute lymphoblastic leukemia",
-      "Chronic myeloid leukemia",
+      "Platelet disorders",
+      "ALL",
+      "CML",
+      "AML",
+      "CLL",
       "Hodgkin lymphoma",
+      "Non-Hodgkin lymphoma",
       "Multiple myeloma"
+    ]
+  },
+  {
+    "name": "Infectious Diseases",
+    "topics": [
+      "Tuberculosis",
+      "HIV",
+      "Staphylococcus aureus",
+      "Streptococcus pyogenes",
+      "Streptococcus pneumoniae",
+      "Neisseria meningitidis",
+      "Neisseria gonorrhoeae",
+      "Clostridioides difficile",
+      "Syphilis",
+      "Lyme disease",
+      "Pneumonia pathogens",
+      "Meningitis pathogens",
+      "Endocarditis pathogens",
+      "Opportunistic infections",
+      "Antimicrobial resistance"
+    ]
+  },
+  {
+    "name": "Male Reproductive System",
+    "topics": [
+      "BPH",
+      "Prostate cancer",
+      "Prostatitis",
+      "Testicular torsion",
+      "Epididymitis",
+      "Testicular tumors",
+      "Varicocele",
+      "Erectile dysfunction",
+      "Male infertility",
+      "Androgen disorders"
+    ]
+  },
+  {
+    "name": "Nervous System",
+    "topics": [
+      "Stroke",
+      "Multiple sclerosis",
+      "Parkinson disease",
+      "Alzheimer disease",
+      "Huntington disease",
+      "Myasthenia gravis",
+      "Lambert-Eaton syndrome",
+      "Migraine",
+      "Seizures",
+      "Brain tumors",
+      "CNS infections",
+      "Spinal cord lesions",
+      "Peripheral neuropathy",
+      "Upper extremity nerve pathways",
+      "Lower extremity nerve pathways",
+      "Autonomic nervous system",
+      "Circle of Willis"
+    ]
+  },
+  {
+    "name": "Ophthalmology",
+    "topics": [
+      "Glaucoma",
+      "Cataracts",
+      "Diabetic retinopathy",
+      "Hypertensive retinopathy",
+      "Retinal detachment",
+      "Macular degeneration",
+      "Uveitis",
+      "Conjunctivitis",
+      "Cranial nerve eye findings"
+    ]
+  },
+  {
+    "name": "Pregnancy, Childbirth & Puerperium",
+    "topics": [
+      "Normal pregnancy physiology",
+      "Prenatal screening",
+      "Ectopic pregnancy",
+      "Spontaneous abortion",
+      "Preeclampsia",
+      "Gestational diabetes",
+      "Placental abruption",
+      "Placenta previa",
+      "Preterm labor",
+      "Postpartum hemorrhage",
+      "Puerperal infections"
+    ]
+  },
+  {
+    "name": "Pulmonary & Critical Care",
+    "topics": [
+      "Asthma",
+      "COPD",
+      "Emphysema",
+      "Chronic bronchitis",
+      "Pulmonary embolism",
+      "Pneumonia",
+      "ARDS",
+      "Restrictive lung disease",
+      "Pneumothorax",
+      "Pleural effusion",
+      "Lung cancer",
+      "Pulmonary hypertension",
+      "Respiratory failure",
+      "Mechanical ventilation basics"
+    ]
+  },
+  {
+    "name": "Renal, Urinary Systems & Electrolytes",
+    "topics": [
+      "Acute kidney injury",
+      "Chronic kidney disease",
+      "Nephritic syndrome",
+      "Nephrotic syndrome",
+      "Minimal change disease",
+      "FSGS",
+      "Membranous nephropathy",
+      "Post-strep glomerulonephritis",
+      "IgA nephropathy",
+      "Acute tubular necrosis",
+      "Renal cell carcinoma",
+      "Acid-base disorders",
+      "Sodium disorders",
+      "Potassium disorders",
+      "Calcium and phosphate disorders",
+      "UTI",
+      "Nephrolithiasis"
+    ]
+  },
+  {
+    "name": "Rheumatology/Orthopedics & Sports",
+    "topics": [
+      "Rheumatoid arthritis",
+      "Osteoarthritis",
+      "Gout",
+      "Pseudogout",
+      "SLE",
+      "Systemic sclerosis",
+      "Sjogren syndrome",
+      "Vasculitis",
+      "Seronegative spondyloarthropathies",
+      "Osteoporosis",
+      "Osteomyelitis",
+      "Fracture healing",
+      "Compartment syndrome",
+      "Back pain",
+      "Sports injuries"
     ]
   }
 ]

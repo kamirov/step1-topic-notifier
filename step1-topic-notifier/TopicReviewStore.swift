@@ -5,7 +5,7 @@ enum TopicReviewRating: String, Codable {
     case soSo
     case good
 
-    var opensSearch: Bool {
+    var opensStudyAssistant: Bool {
         switch self {
         case .again, .soSo:
             return true

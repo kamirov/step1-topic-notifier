@@ -10,14 +10,14 @@ Talk through this from memory.
 
 Notifications include three review buttons:
 
-- `Again`: you missed it. The topic comes back soon and opens a Google search.
-- `So-So`: you partially knew it. The topic comes back moderately soon and opens a Google search.
-- `Good`: you knew it. The topic is pushed later and does not open Google.
+- `Again`: you missed it. The topic comes back soon, copies a ChatGPT prompt, and opens ChatGPT.
+- `So-So`: you partially knew it. The topic comes back moderately soon, copies a ChatGPT prompt, and opens ChatGPT.
+- `Good`: you knew it. The topic is pushed later and does not open ChatGPT.
 
-Clicking the notification body is treated like `So-So` and opens a Google search for:
+Clicking the notification body is treated like `Again`, copies this prompt with the topic filled in, and opens ChatGPT:
 
 ```text
-<topic> USMLE Step 1
+Explain this USMLE Step 1 topic and quiz me on the key mechanisms, associations, and common exam traps: <topic>
 ```
 
 ## Requirements
@@ -49,7 +49,7 @@ If Xcode asks for signing settings, select your local Apple Development team in 
 
 ## Local Data
 
-Topics are bundled in `step1-topic-notifier/topics.json` as grouped topic areas, each with a `name` and `topics` list. Review history and selected current topic groups are stored locally in `UserDefaults`. Review history includes each topic's last review, next due date, ease factor, interval, review count, and latest rating. The app does not use a backend or network service. The only network action is opening the browser after `Again`, `So-So`, or a notification body click.
+Topics are bundled in `step1-topic-notifier/topics.json` as grouped topic areas, each with a `name` and `topics` list. Review history and selected current topic groups are stored locally in `UserDefaults`. Review history includes each topic's last review, next due date, ease factor, interval, review count, and latest rating. The app does not use a backend or network service. The only network action is opening ChatGPT after `Again`, `So-So`, or a notification body click.
 
 ## Command-Line Note
 

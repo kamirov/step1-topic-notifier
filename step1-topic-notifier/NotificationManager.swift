@@ -192,8 +192,8 @@ final class NotificationManager {
 
         reviewStore.recordReview(for: topic, rating: rating)
 
-        if rating.opensSearch {
-            openGoogleSearch(for: topic)
+        if rating.opensStudyAssistant {
+            openStudyAssistant(for: topic)
         }
 
         if defaults.bool(forKey: UserDefaultsKeys.isActive) {
@@ -314,9 +314,9 @@ final class NotificationManager {
 
     private func rating(for actionIdentifier: String) -> TopicReviewRating? {
         switch actionIdentifier {
-        case NotificationCategory.againAction:
+        case NotificationCategory.againAction, UNNotificationDefaultActionIdentifier:
             return .again
-        case NotificationCategory.soSoAction, UNNotificationDefaultActionIdentifier:
+        case NotificationCategory.soSoAction:
             return .soSo
         case NotificationCategory.goodAction:
             return .good
@@ -380,13 +380,13 @@ final class NotificationManager {
         }
     }
 
-    private func openGoogleSearch(for topic: String) {
-        let query = "\(topic) USMLE Step 1"
-        let encodedQuery = query
-            .addingPercentEncoding(withAllowedCharacters: .alphanumerics)?
-            .replacingOccurrences(of: "%20", with: "+") ?? query
+    private func openStudyAssistant(for topic: String) {
+        let prompt = "Explain this USMLE Step 1 topic and quiz me on the key mechanisms, associations, and common exam traps: \(topic)"
+        let pasteboard = NSPasteboard.general
+        pasteboard.clearContents()
+        pasteboard.setString(prompt, forType: .string)
 
-        guard let url = URL(string: "https://www.google.com/search?q=\(encodedQuery)") else {
+        guard let url = URL(string: "https://chatgpt.com/") else {
             return
         }
 
